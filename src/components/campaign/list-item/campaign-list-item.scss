@@ -1,3 +1,16 @@
 .campaign-list-item {
   border-bottom: 0.05em solid #ddd;
 }
+
+.campaign-list-item-name {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  font-size: 1.25em;
+  font-weight: bold;
+
+  @media (min-width: 600px) {
+    padding-bottom: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+}

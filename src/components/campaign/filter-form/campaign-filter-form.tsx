@@ -9,20 +9,20 @@ import moment from "moment";
 
 const CampaignFilterForm: React.FC<IStatePropsFilterList & IDispatchPropsFilterList> = ({filters, onChange}) => {
     return (
-        <Grid container direction="row">
-            <Grid item xs={12} sm={4}>
+        <Grid container direction="row" spacing={2}>
+            <Grid item xs={12} sm={4} className="filter-grid-item">
                 <DateInput id="startDate"
                            label="Start-Date"
                            defaultValue={moment(filters.startDate).format('YYYY-MM-DD')}
                            onChange={onChange}/>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={4} className="filter-grid-item">
                 <DateInput id="endDate"
                            label="End-Date"
                            defaultValue={moment(filters.endDate).format('YYYY-MM-DD')}
                            onChange={onChange}/>
             </Grid>
-            <Grid item xs={12} sm={4} className="search-container">
+            <Grid item xs={12} sm={4} className="filter-grid-item search-container">
                 <TextInput id="search"
                            label="Search by name"
                            defaultValue={filters.search}

@@ -12,6 +12,8 @@ const CampaignAdd: React.FC<IAddCampaignProps & IPropsCampaignAddList> = ({addCa
         try {
             let addCampaignList: ICampaign[] = typeof campaignJson === 'string' ? JSON.parse(campaignJson) : campaignJson;
             if(validateCampaignList(addCampaignList)) {
+
+                // Convert date strings to actual dates
                 addCampaignList = addCampaignList.map((campaign: ICampaign & any) => {
                     if(typeof campaign.startDate === 'string') {
                         campaign.startDate = new Date(campaign.startDate);
@@ -22,17 +24,21 @@ const CampaignAdd: React.FC<IAddCampaignProps & IPropsCampaignAddList> = ({addCa
                     return campaign;
                 });
 
+                // Avoid duplicate IDs by trying to match IDs to existing campaigns
                 const filteredAddCampaignList = addCampaignList.filter(addCampaign =>
                     campaigns.filter(campaign => addCampaign.id === campaign.id).length > 0);
 
                 if(filteredAddCampaignList.length === 0) {
+                    // No duplicates, proceed to add campaign
                     addCampaigns(addCampaignList);
                 } else {
+                    // Report on duplicate IDs
                     const duplicateIds = filteredAddCampaignList.map(filteredCampaign => filteredCampaign.id);
                     alert(`Aborted due to duplicate IDs found: ${duplicateIds.join(', ')}`);
                 }
             }
         } catch (e) {
+            // Invalid data was passed, so report an error
             alert(`Parsing campaigns failed: ${e}`);
         }
     };

@@ -4,35 +4,35 @@ import {ICampaignState} from "../../../interfaces/campaign-state";
 import CampaignList, {IPropsCampaignList} from "../list/campaign-list";
 import {ICampaignList} from "../../../interfaces/campaign-list";
 
-const getFilteredCampaigns = ({campaigns, filters}: ICampaignList) => {
+export const getFilteredCampaigns = ({campaigns, filters}: ICampaignList) => {
     return campaigns
-        .filter(campaign => applyStartDateFilter(campaign, filters.startDate))
-        .filter(campaign => applyEndDateFilter(campaign, filters.endDate))
-        .filter(campaign => applySearchFilter(campaign, filters.search));
+        .filter(campaign => isDateAfterFilter(campaign.startDate, filters.startDate))
+        .filter(campaign => isDateBeforeFilter(campaign.endDate, filters.endDate))
+        .filter(campaign => matchSearchFilter(campaign.name, filters.search));
 };
 
-const applyStartDateFilter = (campaign: ICampaign, startDate: string): boolean => {
-    if (startDate === null || startDate === '') {
+export const isDateAfterFilter = (campaignDate: Date, compareDate: string): boolean => {
+    if (compareDate === null || compareDate === '') {
         return true;
     }
 
-    return new Date(campaign.startDate) >= new Date(startDate);
+    return campaignDate >= new Date(compareDate);
 };
 
-const applyEndDateFilter = (campaign: ICampaign, endDate: string): boolean => {
-    if (endDate === null || endDate === '') {
+export const isDateBeforeFilter = (campaignDate: Date, compareDate: string): boolean => {
+    if (compareDate === null || compareDate === '') {
         return true;
     }
 
-    return new Date(campaign.endDate) <= new Date(endDate);
+    return campaignDate <= new Date(compareDate);
 };
 
-const applySearchFilter = (campaign: ICampaign, search: string): boolean => {
+export const matchSearchFilter = (text: string, search: string): boolean => {
     if (search === null || search === '') {
         return true;
     }
 
-    return campaign.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    return text.toLowerCase().indexOf(search.toLowerCase()) !== -1;
 };
 
 const mapStateToProps = (state: ICampaignState): IPropsCampaignList => ({

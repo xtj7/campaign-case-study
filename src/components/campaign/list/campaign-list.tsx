@@ -21,7 +21,7 @@ const emptyMessage = (campaigns: ICampaign[]) => {
     }
 
     return (
-        <Container >
+        <Container>
             <Typography align="center">No items found for your selected criteria.</Typography>
         </Container>
     );

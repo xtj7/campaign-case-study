@@ -3,29 +3,39 @@ import {PauseCircleFilled, PlayCircleFilled} from "@material-ui/icons";
 import Button from "@material-ui/core/Button";
 import './active-status.scss';
 
-const ActiveStatus: React.FC<IPropsActiveStatus> = ({startDate, endDate}) => {
-    const now = new Date();
-    const isActive = startDate <= now && endDate >= now;
+class ActiveStatus extends React.Component<IPropsActiveStatus> {
+    public state = {
+        isActive: false
+    };
 
-    return (
-        <Button variant="text" disabled={!isActive} className="active-status__button">
-            {isActive ? IconActiveStatus() : IconInactiveStatus()}
-            {isActive ? 'Active' : 'Inactive'}
-        </Button>
-    );
-};
+    constructor(props: IPropsActiveStatus) {
+        super(props);
 
-const IconActiveStatus = () => {
-    return <PlayCircleFilled className="active-status__icon active-status__icon--active"/>;
-};
+        const now = new Date();
+        this.state.isActive = props.startDate <= now && props.endDate >= now;
+    }
 
-const IconInactiveStatus = () => {
-    return <PauseCircleFilled className="active-status__icon active-status__icon--inactive"/>;
-};
+    render() {
+        return (
+            <Button variant="text" disabled={!this.state.isActive} className="active-status__button">
+                {this.state.isActive ? this.IconActiveStatus() : this.IconInactiveStatus()}
+                <span>{this.state.isActive ? 'Active' : 'Inactive'}</span>
+            </Button>
+        );
+    }
+
+    private IconActiveStatus() {
+        return <PlayCircleFilled className="active-status__icon active-status__icon--active"/>;
+    }
+
+    private IconInactiveStatus() {
+        return <PauseCircleFilled className="active-status__icon active-status__icon--inactive"/>;
+    }
+}
 
 export default ActiveStatus;
 
 export interface IPropsActiveStatus {
     startDate: Date,
-    endDate: Date
+    endDate: Date,
 }
