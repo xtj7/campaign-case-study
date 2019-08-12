@@ -3,7 +3,7 @@ import {ICampaignState} from "../../../interfaces/campaign-state";
 import CampaignList, {IPropsCampaignList} from "../list/campaign-list";
 import {ICampaignList} from "../../../interfaces/campaign-list";
 
-export const getFilteredCampaigns = ({campaigns, filters}: ICampaignList) => {
+export const campaignFilterReducer = ({campaigns, filters}: ICampaignList) => {
     return campaigns
         .filter(campaign => isDateAfterFilter(campaign.startDate, filters.startDate))
         .filter(campaign => isDateBeforeFilter(campaign.endDate, filters.endDate))
@@ -35,7 +35,7 @@ export const matchSearchFilter = (text: string, search: string): boolean => {
 };
 
 const mapStateToProps = (state: ICampaignState): IPropsCampaignList => ({
-    campaigns: getFilteredCampaigns(state.campaignList)
+    campaigns: campaignFilterReducer(state.campaignList)
 });
 
 export default connect(

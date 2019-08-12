@@ -9,7 +9,7 @@ import {dateFormat} from "../../../config";
 
 let container: HTMLDivElement;
 
-const testCampaign: ICampaign = {
+const mockCampaign: ICampaign = {
     id: 1,
     name: 'TestCampaign',
     startDate: moment().subtract(6, 'months').toDate(),
@@ -28,31 +28,31 @@ afterEach(() => {
 
 describe('CampaignListItem', () => {
     it('should display campaign name', () => {
-        createComponent(testCampaign);
+        createComponent(mockCampaign);
         const $ = getComponentSelector();
-        expect($('.campaign-list-item-name').text()).toEqual(testCampaign.name);
+        expect($('.campaign-list-item-name').text()).toEqual(mockCampaign.name);
     });
 
     it('should display campaign start date', () => {
-        createComponent(testCampaign);
+        createComponent(mockCampaign);
         const $ = getComponentSelector();
-        expect($('.campaign-list-item-start-date').text()).toEqual(moment(testCampaign.startDate).format(dateFormat));
+        expect($('.campaign-list-item-start-date').text()).toEqual(moment(mockCampaign.startDate).format(dateFormat));
     });
 
     it('should display campaign end date', () => {
-        createComponent(testCampaign);
+        createComponent(mockCampaign);
         const $ = getComponentSelector();
-        expect($('.campaign-list-item-end-date').text()).toEqual(moment(testCampaign.endDate).format(dateFormat));
+        expect($('.campaign-list-item-end-date').text()).toEqual(moment(mockCampaign.endDate).format(dateFormat));
     });
 
     it('should display campaign active status', () => {
-        createComponent(testCampaign);
+        createComponent(mockCampaign);
         const $ = getComponentSelector();
         expect($('.campaign-list-item-active-status').text()).toContain('Active');
     });
 
     it('should display campaign budget', () => {
-        createComponent(testCampaign);
+        createComponent(mockCampaign);
         const $ = getComponentSelector();
         expect($('.campaign-list-item-budget').text()).toContain('123');
     });

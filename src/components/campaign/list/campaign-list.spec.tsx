@@ -8,7 +8,7 @@ import CampaignList from "./campaign-list";
 
 let container: HTMLDivElement;
 
-const testCampaigns: ICampaign[] = [
+const mockCampaigns: ICampaign[] = [
     {
         id: 1,
         name: 'TestCampaign 1',
@@ -36,9 +36,9 @@ afterEach(() => {
 
 describe('CampaignListItem', () => {
     it('should display multiple campaigns', () => {
-        createComponent(testCampaigns);
+        createComponent(mockCampaigns);
         const $ = getComponentSelector();
-        expect($('.campaign-list-item').length).toEqual(testCampaigns.length);
+        expect($('.campaign-list-item').length).toEqual(mockCampaigns.length);
     });
 
     it('should display no items found message if there are no campaigns', () => {
