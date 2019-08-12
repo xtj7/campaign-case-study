@@ -1,5 +1,4 @@
 import {connect} from "react-redux";
-import {ICampaign} from "../../../interfaces/campaign";
 import {ICampaignState} from "../../../interfaces/campaign-state";
 import CampaignList, {IPropsCampaignList} from "../list/campaign-list";
 import {ICampaignList} from "../../../interfaces/campaign-list";

@@ -1,44 +1,45 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Campaign Case Study
 
-## Available Scripts
+### Building & running
 
-In the project directory, you can run:
+`yarn start` to start a webserver locally and run the app
 
-### `npm start`
+`yarn test` to run the unit tests
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`yarn docker-build` to build a docker image
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+`yarn docker-run` to run the built image (accessible under http://127.0.0.1:9000)
 
-### `npm test`
+### Bootstrapping
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I usually use `create-react-app` for the initial bootstrapping as I did here as well. 
+It creates a usable code-structure that requires minor tweaking, is widely accepted and understood by pretty much all React developers.
 
-### `npm run build`
+The project was set up with Typescript, as static code-analysis has significant advantages and lets you discover a lot of 
+potential runtime-issues during compile-time. 
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Docker
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+I chose the latest LTS node version as an image to build the app inside docker.
+For the container serving the data, I chose the same image with the serve package. 
+While nginx would have been much faster at serving static, it would have required additional setup work and complicated the process.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Since the goal was to have a package that I could ship to production, I assumed the existance of CloudFlare (or similar) in production 
+as an additional caching layer infront of the application, as every production system should have.
+Due to the resources being cached by the CDN, it is no longer required to have an extremely fast server, so we can value ease of use over speed.
 
-### `npm run eject`
+While Docker on its own is a widely-regarded standard solution, if the entire technology stack were up to me, I would certainly choose an
+orchestration layer such as Kubernetes or Docker Swarm, simply to have better control over the deployments and services.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Tests
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+In writing unit tests I did not aim for a 100% coverage but instead tried to aim for a proper
+coverage of all crucial features (such as actions, filters, validations, etc.).
+For me this requires meaningful tests rather than putting the focus on the percentage of coverage. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Known issues
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Deprecation warning of `componentWillMount` and `componentWillReceiveProps`. 
+This is caused by the react-moment dependency, which as of yet has not been updated as per React recommendations.
+Due to time constraints I was unable to create a pull-request on Github to use an updated version. 
+There are no functional limitations as long as a React version prior to 1.7 is used.
