@@ -1,0 +1,16 @@
+.active-status {
+  &__button {
+
+  }
+  &__icon {
+    margin-right: 0.5em;
+
+    &--active {
+      fill: green !important;
+    }
+
+    &--inactive {
+      fill: red !important;
+    }
+  }
+}
