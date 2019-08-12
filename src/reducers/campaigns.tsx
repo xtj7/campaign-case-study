@@ -77,8 +77,8 @@ const initialState = {
         }
     ],
     filters: {
-        startDate: moment().startOf('year').subtract(5, 'years').toDate(),
-        endDate: moment().endOf('year').add(5, 'years').toDate(),
+        startDate: moment().startOf('year').subtract(5, 'years').format('YYYY-MM-DD'),
+        endDate: moment().endOf('year').add(5, 'years').format('YYYY-MM-DD'),
         search: ''
     }
 };
@@ -96,7 +96,6 @@ const CampaignsReducer = (state = initialState, action: IAction) => {
             };
 
         case UPDATE_FILTER_TYPE:
-            console.log('update filter', action.payload);
             const newState = {
                 ...state,
                 filters: {

@@ -3,7 +3,7 @@ import {TextField} from "@material-ui/core";
 import {IInputProps} from "../../interfaces/input-props";
 import './text-input.scss';
 
-const TextInput: React.FC<IInputProps> = ({id, label, defaultValue, onChange}) => {
+const TextInput: React.FC<IInputProps> = ({id, label, value, onChange}) => {
     const handleChange = (e: ChangeEvent<any>) => {
         onChange(e.target.id, e.target.value);
     };
@@ -12,7 +12,7 @@ const TextInput: React.FC<IInputProps> = ({id, label, defaultValue, onChange}) =
         <TextField id={id}
                    label={label}
                    type="text"
-                   defaultValue={defaultValue}
+                   value={value}
                    className="text-input"
                    onChange={handleChange}/>
     );
