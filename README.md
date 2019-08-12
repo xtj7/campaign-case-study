@@ -20,6 +20,8 @@ potential runtime-issues during compile-time.
 
 ### Layout / Design
 
+![screenshot](./documentation/screenshot.png)
+
 For the layout I chose material-ui, as it is a modern and easy to use UI interface. It also makes it easy to create responsive designs, so I made sure that the campaign overview works on mobile viewports as well.
 
 I tried to keep everything as minimal as possible, spacings large to ensure good readability while avoiding any distracting elements.
